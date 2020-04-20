@@ -1,0 +1,188 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BUNKER BROADCASTS</title>
+    <style>
+
+
+    body, html {
+        height: 100%;
+        background-color: #5F9EA0;
+    }
+
+    .bg {
+        background-image: url("WebBackground.jpg");
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 0;
+    }
+
+    .floatingImage {
+        object-fit: cover;
+        position: absolute;
+        z-index: 1;
+    }
+
+
+    .video {
+        object-fit: cover;
+        position: absolute;
+        z-index: 2;
+    }
+
+
+    .button {
+        object-fit: cover;
+        position: absolute;
+        z-index: 3;
+    }
+
+
+    #news {
+        left: 170px;
+        top: 58px;
+    }
+
+    #entz {
+        left: 809px;
+        top: 83px;
+    }
+
+    #typewriter {
+        left: 0px;
+        top: 10px;
+    }
+
+    #headSet {
+        left: 700px;
+        top: 10px;
+
+    }
+
+    #newsPP {
+        left: 175px;
+        top: 591px;
+    }
+
+
+    #newsAudio {
+        left: 260px;
+        top: 562px;
+    }
+
+    #entzPP {
+        left: 1050px;
+        top: 58px;
+    }
+
+
+    #entzAudio {
+        left: 1080px;
+        top: 58px;
+    }
+
+
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <img src="typewriter.png" alt="typewriter" class="floatingImage" id="typewriter" >
+    <img src="headSet.png" alt="headset" class="floatingImage" id="headSet">
+    
+    <img src="spacebar1.png" alt="spacebar" usemap="#spacebar" class="button" id="newsPP">
+    <map name="spacebar">
+        <area shape="rect" coords="5,4,271,39" onclick="pausePlayVideo(1)">
+    </map>
+
+    <img src="mKey.png" alt="mkey" usemap="#mkey" class="button" id="newsAudio">
+    <map name="mkey">
+        <area shape="rect" coords="5,9,36,33" onclick="muteUnmuteVideo(1)">
+    </map>
+
+    <img src="ear.png" alt="ear" usemap="#ear" class="button" id="entzAudio">
+    <map name="ear">
+        <area shape="default" coords="2,3,39,47" onclick="muteUnmuteVideo(2)">
+    </map>
+
+     <img src="button.png" alt="button" usemap="#button" class="button" id="entzPP">
+    <map name="button">
+        <area shape="circ" coords="22,22,22" onclick="pausePlayVideo(2)">
+    </map>
+
+
+</body>
+
+<script src= "https://player.twitch.tv/js/embed/v1.js"></script>
+
+<div class="video" id="news"></div> <!-- news -->
+
+<div class="video" id="entz"></div> <!-- entertainment -->
+
+
+<script type="text/javascript">
+    let options = { //news defaults
+
+        channel: "bunkerbnews",
+        autoplay: true,
+        controls: false,
+        width: 300,
+        height: 169,
+    };
+
+    let player = new Twitch.Player("news", options);
+
+    let options2 = { //entertainment defaults
+
+        channel: "bunkerbentz",
+        autoplay: true,
+        controls: false,
+        width: 300,
+        height: 169,
+    };
+    let player2 = new Twitch.Player("entz", options2);
+
+    player.setMuted(true);
+    player2.setMuted(false);
+    player.setVolume(0.8); //news volume
+    player2.setVolume(0.8); //entertainment volume
+
+    function pauseVideo(num) {
+        getPlayer(num).pause();
+    }
+
+    function playVideo(num) {
+        getPlayer(num).play()
+    }
+
+    function pausePlayVideo(num){
+        if (getPlayer(num).isPaused()==true){
+            playVideo(num);
+        } else {
+            pauseVideo(num);
+        }
+    }
+
+    function muteUnmuteVideo(num){
+        var playerInput = getPlayer(num);
+        if (playerInput.getMuted()==false){
+            playerInput.setMuted(true);
+        } else {
+            playerInput.setMuted(false);
+        }
+    }
+
+    function getPlayer(number){
+        if(number === 1){
+            return player
+        } else {
+            return player2
+        }
+    }
+
+</script>
+</html>
